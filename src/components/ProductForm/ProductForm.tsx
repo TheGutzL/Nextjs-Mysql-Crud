@@ -26,7 +26,6 @@ const ProductForm = () => {
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const res = await axios.post("/api/products", product);
-    console.log(res);
     if (form.current) {
       form.current.reset();
     }
