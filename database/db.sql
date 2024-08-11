@@ -1,0 +1,10 @@
+-- Active: 1723325206958@@127.0.0.1@3306@nextjsmysqlcrud
+CREATE TABLE product (
+    id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(200) NOT NULL,
+    description VARCHAR(200),
+    price DECIMAL(10, 2) NOT NULL,
+    createdAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+SELECT NOW();
