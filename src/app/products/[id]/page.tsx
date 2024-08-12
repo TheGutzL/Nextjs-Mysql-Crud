@@ -5,6 +5,7 @@ import axios from "axios";
 import { useParams } from "next/navigation";
 import { useEffect, useState } from "react";
 import Buttons from "./Buttons";
+import Image from "next/image";
 
 async function loadProduct(productId: number) {
   const { data } = await axios.get(`/api/products/${productId}`);
@@ -18,6 +19,7 @@ function ProductPage() {
     name: "",
     price: 0,
     description: "",
+    image: "",
   });
 
   useEffect(() => {
@@ -30,12 +32,18 @@ function ProductPage() {
   }, [params.id]);
 
   return (
-    <section className="flex justify-center items-center text-black">
-      <div className="p-6 bg-white rounded-lg">
-        <p>Name: {product.name}</p>
-        <p>Price: {product.price}</p>
-        <p>Description: {product.description}</p>
-
+    <section className="flex justify-center items-center h-[calc(100vh-10rem)] text-black">
+      <div className="flex w-4/6 justify-center h-2/6">
+        <div className="p-6 bg-white w-1/3">
+          <h3 className="text-2xl font-bold mb-3">{product.name}</h3>
+          <h4 className="text-4xl font-bold">{product.price}</h4>
+          <p className="text-slate-700">{product.description}</p>
+        </div>
+        <Image
+          src={product.image}
+          className="w-1/3"
+          alt=""
+        />
         <Buttons productId={product.id} />
       </div>
     </section>

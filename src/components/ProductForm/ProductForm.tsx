@@ -1,6 +1,7 @@
 "use client";
 
 import axios from "axios";
+import Image from "next/image";
 import { useParams, useRouter } from "next/navigation";
 import { ChangeEvent, useEffect, useRef, useState } from "react";
 
@@ -40,22 +41,25 @@ const ProductForm = () => {
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
+    const formData = new FormData();
+    formData.append("name", product.name);
+    formData.append("price", product.price.toString());
+    formData.append("description", product.description);
+    if (file) {
+      formData.append("image", file);
+    }
     if (!params.id) {
-      const formData = new FormData();
-      formData.append("name", product.name);
-      formData.append("price", product.price.toString());
-      formData.append("description", product.description);
-      if (file) {
-        formData.append("image", file);
-      }
-
       const res = await axios.post("/api/products", formData, {
         headers: {
           "Content-Type": "multipart/form-data",
         },
       });
     } else {
-      const res = await axios.put(`/api/products/${params.id}`, product);
+      const res = await axios.put(`/api/products/${params.id}`, formData, {
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
     }
 
     if (form.current) {
@@ -134,7 +138,7 @@ const ProductForm = () => {
           }}
         />
         {file && (
-          <img
+          <Image
             src={URL.createObjectURL(file)}
             alt="file"
             className="w-96 object-contain mx-auto my-4"

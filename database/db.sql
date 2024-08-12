@@ -7,4 +7,10 @@ CREATE TABLE product (
     createdAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
+ALTER TABLE product ADD COLUMN image VARCHAR(200) AFTER description;
+
+DESCRIBE product;
+
 SELECT NOW();
+
+SELECT * FROM product;
