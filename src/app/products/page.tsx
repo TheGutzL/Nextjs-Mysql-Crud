@@ -1,5 +1,5 @@
 import { ProductCard } from "@/components";
-import { Product } from "@/models/product";
+import { Product } from "@/models";
 import axios from "axios";
 
 async function loadProducts() {
